@@ -16,7 +16,7 @@ class Pluginmanager(object):
     def load_plugin(self, name, config=None):
         modulename, classname = name.split('.')
         module = __import__('plugins.' + modulename)
-        for requred_module in getattr('REQUIRED_PLUGINS', module):
+        for requred_module in getattr('REQUIRES', module):
             if requred_module not in self._plugins:
                 self.load_plugin(requred_module)
         self._plugins[name] = getattr(classname, module)
