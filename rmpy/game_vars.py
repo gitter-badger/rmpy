@@ -43,7 +43,6 @@ class GameVars(collections.abc.MutableMapping):
         with self.lock:
             return {x:y[0] for x,y in self.data.items() if y[1]is True}
 
-
     def items(self):
         with self.lock:
             return [(x,y[0]) for x,y in self.data.items() if y[1] is True]
