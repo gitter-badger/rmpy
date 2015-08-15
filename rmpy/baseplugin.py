@@ -28,7 +28,7 @@ class BasePlugin(object):
             self.config = self.DEFAULT_CONFIG.update(**config).copy()
 
         # name from Pluginmanager like 'modulename.classname'
-        self._importname = '%s.%s' % (__name__,self.__class__.__name__)
+        self._importname = '%s.%s' % (__name__, self.__class__.__name__)
         self.__dict__.update(kwargs)
         self.running = False
 
