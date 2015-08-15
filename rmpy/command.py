@@ -1,0 +1,4 @@
+import baseplugin
+
+
+class CommandInterface
