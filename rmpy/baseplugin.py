@@ -29,7 +29,7 @@ class BasePlugin(object):
 
         # name from Pluginmanager like 'modulename.classname'
         self._importname = '%s.%s' % (__name__,self.__class__.__name__)
-        self.__dict__.update(kwargs)
+        self.__dict__.update(**kwargs)
         self.running = False
 
     def recv_request_data(self):
@@ -41,11 +41,12 @@ class BasePlugin(object):
     def start(self):
             self.running = True
 
-    def reload(self):
+    def reload(self, config=None):
+        config = self.DEFAULT_CONFIG.defaultdict().update(config) if config else self.DEFAULT_CONFIG.defaultdict()
         # After unhook this object will be piced by the garbage collector
         self._plugnmanager.unload(self.name)
         # code is still in stack so this will still be executed
-        self._plugnmanager.load(self.name, self.DEFAULT_CONFIG.defaultdict())
+        self._plugnmanager.load(self.name, config)
 
     def soft_reload(self):
         self.config = self.DEFAULT_CONFIG.copy()
