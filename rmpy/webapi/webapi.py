@@ -5,6 +5,7 @@ from flask.ext.httpauth import HTTPBasicAuth
 from passlib.hash import pbkdf2_sha512
 from flask.ext.sqlalchemy import SQLAlchemy
 
+VERSION = '0.1'
 app = Flask(__name__, static_url_path="")
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'rmpy.db')
@@ -80,7 +81,7 @@ def not_found404(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-@app.route('/rmpy/api/v1.0/servers', methods=['GET'])
+@app.route('/rmpy/api/v' + VERSION + '/servers', methods=['GET'])
 def get_servers():
     if auth.username() and User.query.filter_by(name=auth.username()).first().role == "admin":
         servers = Server.query.all()
@@ -91,7 +92,7 @@ def get_servers():
     return make_response(jsonify(data=[a._asdict() for a in servers]))
 
 
-@app.route('/rmpy/api/v1.0/servers', methods=['POST'])
+@app.route('/rmpy/api/v' + VERSION + '/servers', methods=['POST'])
 @auth.login_required
 def add_server():
     server = Server(
@@ -106,7 +107,7 @@ def add_server():
     return make_response(jsonify(data=server))
 
 
-@app.route('/rmpy/api/v1.0/servers/<string:serverId>', methods=['DELETE'])
+@app.route('/rmpy/api/v' + VERSION + '/servers/<string:serverId>', methods=['DELETE'])
 @auth.login_required
 def delete_server(serverId):
     try:
@@ -121,7 +122,7 @@ def delete_server(serverId):
         return make_response(jsonify({'error': 'couldn\'t delete server'}), 400)
 
 
-@app.route('/rmpy/api/v1.0/users', methods=['GET'])
+@app.route('/rmpy/api/v' + VERSION + '/users', methods=['GET'])
 @auth.login_required
 def get_users():
     if User.query.filter_by(name=auth.username()).first().role != "admin":
@@ -134,7 +135,7 @@ def get_users():
     return make_response(jsonify(users=users))
 
 
-@app.route('/rmpy/api/v1.0/users', methods=['POST'])
+@app.route('/rmpy/api/v' + VERSION + '/users', methods=['POST'])
 @auth.login_required
 def add_user():
     if User.query.filter_by(name=auth.username()).first().role != "admin":
@@ -151,7 +152,7 @@ def add_user():
     return make_response(jsonify(users=user._asdict()))
 
 
-@app.route('/rmpy/api/v1.0/users', methods=['DELETE'])
+@app.route('/rmpy/api/v' + VERSION + '/users', methods=['DELETE'])
 @auth.login_required
 def delete_user():
     if User.query.filter_by(name=auth.username()).first().role != "admin":
@@ -162,7 +163,7 @@ def delete_user():
     return make_response(jsonify(users=[a._asdict() for a in User.query.all()]))
 
 
-@app.route('/rmpy/api/v1.0/users', methods=['PUT'])
+@app.route('/rmpy/api/v' + VERSION + '/users', methods=['PUT'])
 @auth.login_required
 def update_user():
     if User.query.filter_by(name=auth.username()).first().role != "admin":
