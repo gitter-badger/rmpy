@@ -3,4 +3,4 @@ class Event(object):
     def __init__(self, cls, eventtype, **kwargs):
         self.cls = cls
         self.eventtype = eventtype
-        self.__dict__.update(kwargs)
+        self.__dict__.update(**kwargs)

@@ -6,7 +6,7 @@ class Pluginconfig(object):
         self.update(**kwargs)
 
     def update(self, **kwargs):
-        self.__dict__.update(kwargs)
+        self.__dict__.update(**kwargs)
 
     def copy(self):
         return copy.deepcopy(self)

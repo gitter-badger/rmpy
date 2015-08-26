@@ -27,8 +27,8 @@ class StageMachine(object):
                 }
             }
         }
-        Private configs will everytime overwrite global configs
-        """
+        Private configs will everytime overwrite global configs"""
+
         self.lock = threading.Lock()
         self._game_vars = game_vars.GameVars()
         self._transport = transport
@@ -75,5 +75,3 @@ class StageMachine(object):
     def game_vars(self):
         with self.lock:
             return self._game_vars.__dict__.copy()
-
-

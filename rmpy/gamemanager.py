@@ -1,6 +1,6 @@
 import socketserver
 import threading
-import stagemachine as stage
+import statemachine as stage
 import event
 import os
 import os.path
@@ -36,11 +36,10 @@ class GameManager(object):
                 stage.close()
         return Listener
 
-    def _startgame(self,port):
+    def _startgame(self, port):
         transport = transport.Transport(self.game_vars['server'])
         st = stage.stagemachine(self.config, transport)
         listener = self._generate_listener(st)
-        server = socketserver.socketserver.UDPServer(("",port), listener)
+        server = socketserver.socketserver.UDPServer(("", port), listener)
         threading.Thread(target = server.serve_forever)
-        return server,stage
-
+        return server, stage

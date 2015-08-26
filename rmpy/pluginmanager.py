@@ -15,9 +15,9 @@ class Pluginmanager(object):
             if requred_module not in self._plugins:
                 self.load_plugin(requred_module)
         self._plugins[name] = getattr(classname, module)
-        self._plugins[name](self, self._eventhandler,self._transport, self.gamevars, config).start()
+        self._plugins[name](self, self._eventhandler, self._transport, self.gamevars, config).start()
 
-    def unload_plugin(self, name, with_deps=True,force_unload_deps=False):
+    def unload_plugin(self, name, with_deps=True):
         self._plugins[name].stop()
         self._eventhandler.unload_plugin[name]
         plugin = self._plugins[name:]

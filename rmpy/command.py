@@ -1,4 +1,5 @@
 import baseplugin
 
 
-class CommandInterface
+class Command():
+    pass
