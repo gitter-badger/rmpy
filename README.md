@@ -1,4 +1,6 @@
 # rmpy
+
+[![Join the chat at https://gitter.im/realfake/rmpy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/realfake/rmpy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Is a RESTful webapi, to manage gameservers wich support the RCON protocol and logging over UDP
 
 #### TODO with descending priority
